@@ -41,8 +41,9 @@ pub fn optional(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let fields = get_fields(&input.data);
 
     let optional_fields = fields.iter().map(|f| {
-        let f_name = f.ident.as_ref().unwrap();
-        let f_type = &f.ty;
+        let f_name: &Ident = f.ident.as_ref().unwrap();
+        let f_type: &Type = &f.ty;
+        let f_vis: &Visibility = &f.vis;
 
         let mut is_except = false;
 
@@ -56,11 +57,11 @@ pub fn optional(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
         if is_except {
             quote! {
-                #f_name: #f_type
+                #f_vis #f_name: #f_type
             }
         } else {
             quote! {
-                #f_name: Option<#f_type>
+                #f_vis #f_name: Option<#f_type>
             }
         }
     });
