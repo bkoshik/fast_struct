@@ -1,5 +1,5 @@
 [package]
-name = "auto-get_macro"
+name = "fast_struct"
 version = "1.0.1"
 edition = "2024"
 
