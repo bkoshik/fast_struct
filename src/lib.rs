@@ -3,8 +3,7 @@ mod helpers;
 use helpers::*;
 use proc_macro::TokenStream;
 use quote::quote;
-use syn::{parse_macro_input, DeriveInput, Ident, Type, Visibility};
-use syn::token::Token;
+use syn::{parse_macro_input, DeriveInput, Ident, Type, Visibility, ItemStruct};
 
 #[proc_macro_derive(AutoGetters)]
 pub fn auto_getters(input: TokenStream) -> TokenStream {
@@ -35,13 +34,11 @@ pub fn auto_getters(input: TokenStream) -> TokenStream {
 
 #[proc_macro_attribute]
 pub fn optional(_attr: TokenStream, item: TokenStream) -> TokenStream {
-    let input: DeriveInput = parse_macro_input!(item as DeriveInput);
+    let input: ItemStruct = parse_macro_input!(item as ItemStruct);
     let name: Ident = input.ident;
     let vis: &Visibility = &input.vis;
 
-    let fields = get_fields(&input.data);
-
-    let optional_fields: Vec<_> = fields.iter().map(|f| {
+    let optional_fields: Vec<_> = input.fields.iter().map(|f| {
         let f_name: &Ident = f.ident.as_ref().unwrap();
         let f_type: &Type = &f.ty;
         let f_vis: &Visibility = &f.vis;
