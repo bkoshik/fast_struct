@@ -1,22 +1,28 @@
 # CHANGELOG
 
-## [Unreleased]
+## [1.2.0]
 
 ### Added
 
-- Add `#[except]` attribute in `AutoGetters` macro
+- Add checking for Named Structs in `#[derive(AutoGetters)]` macro
+- Add checking for Named/Unnamed Structs in `#[optional]` macro
+- Add documentation
+
+### Removed
+
+- Delete `helpers.rs` module
 
 ## [1.1.1]
 
 ### Added
 
-- Add visibility to `optional` macro
+- Add visibility to `#[optional]` macro
 
 ## [1.1.0]
 
 ### Added
 
-- Add `optional` procedural macro with attribute for structs
+- Add `#[optional]` procedural macro with attribute for structs
 
 ## [1.0.1]
 
