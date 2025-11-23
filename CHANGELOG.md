@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [Unreleased]
+
+### Added
+
+- Add `#[except]` attribute in `AutoGetters` macro
+
 ## [1.1.1]
 
 ### Added
