@@ -21,6 +21,7 @@ pub fn auto_getters_impl(input: TokenStream) -> TokenStream {
                     let f_type: &Type = &f.ty;
 
                     quote! {
+                        #[inline]
                         pub fn #f_get_name(&self) -> &#f_type {
                             &self.#f_name
                         }

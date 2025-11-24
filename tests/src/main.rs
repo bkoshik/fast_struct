@@ -20,7 +20,7 @@ mod tests {
         assert_eq!("Hello, world!", foo.get_bar());
         assert_eq!(1984_i16, *foo.get_baz());
     }
-    
+
     #[test]
     fn auto_setters_test() {
         #[derive(AutoSetters)]
@@ -28,12 +28,12 @@ mod tests {
             bar: String,
             baz: i16,
         }
-        
+
         let mut foo = Foo {
             bar: "Hi, world!".to_string(),
             baz: 2020,
         };
-        
+
         foo.set_bar("Hello, world!");
         foo.set_baz(1984_i16);
     }

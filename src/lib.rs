@@ -71,10 +71,12 @@ use proc_macro::TokenStream;
 /// }
 ///
 /// impl Foo {
+///     #[inline]
 ///     pub fn get_bar(&self) -> &i16 {
 ///         &self.bar
 ///     }
 ///
+///     #[inline]
 ///     pub fn get_baz(&self) -> &String {
 ///         &self.baz
 ///     }
@@ -90,9 +92,9 @@ pub fn auto_getters(input: TokenStream) -> TokenStream {
 /// # Example
 ///
 /// ```
-/// use fast_struct::AutoGetters;
+/// use fast_struct::AutoSetters;
 ///
-/// #[derive(AutoGetters)]
+/// #[derive(AutoSetters)]
 /// struct Foo {
 ///     bar: i16,
 ///     baz: String,
@@ -108,10 +110,12 @@ pub fn auto_getters(input: TokenStream) -> TokenStream {
 /// }
 ///
 /// impl Foo {
+///     #[inline]
 ///     pub fn set_bar<T: Into<i16>>(&mut self, value: T) {
 ///         self.bar = value.into();
 ///     }
 ///
+///     #[inline]
 ///     pub fn set_baz<T: Into<String>>(&mut self, value: T) {
 ///         self.baz = value.into();
 ///     }

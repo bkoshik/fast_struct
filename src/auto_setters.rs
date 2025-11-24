@@ -21,6 +21,7 @@ pub fn auto_setters_impl(input: TokenStream) -> TokenStream {
                     let f_type: &Type = &f.ty;
 
                     quote! {
+                        #[inline]
                         pub fn #f_set_name<T: Into<#f_type>>(&mut self, value: T) {
                             self.#f_name = value.into();
                         }
