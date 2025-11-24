@@ -3,7 +3,7 @@ use quote::quote;
 use syn::{Fields, Ident, ItemStruct, Type, parse_macro_input};
 use syn::spanned::Spanned;
 
-pub fn auto_getters_impl(input: TokenStream) -> TokenStream {
+pub fn auto_setters_impl(input: TokenStream) -> TokenStream {
     let input: ItemStruct = parse_macro_input!(input as ItemStruct);
 
     let name: Ident = input.ident;
@@ -14,15 +14,15 @@ pub fn auto_getters_impl(input: TokenStream) -> TokenStream {
                 .iter()
                 .map(|f| {
                     let f_name: &Ident = f.ident.as_ref().unwrap();
-                    let f_get_name: Ident = Ident::new(
-                        &format!("get_{}", f_name),
+                    let f_set_name: Ident = Ident::new(
+                        &format!("set_{}", f_name),
                         f.span()
                     );
                     let f_type: &Type = &f.ty;
 
                     quote! {
-                        pub fn #f_get_name(&self) -> &#f_type {
-                            &self.#f_name
+                        pub fn #f_set_name<T: Into<#f_type>>(&mut self, value: T) {
+                            self.#f_name = value.into();
                         }
                     }
                 })
@@ -35,7 +35,7 @@ pub fn auto_getters_impl(input: TokenStream) -> TokenStream {
             }
             .into()
         }
-        _ => unimplemented!("AutoGetters can only be derived for structs with named fields"),
+        _ => unimplemented!("AutoSetters can only be derived for structs with named fields"),
     };
 
     output

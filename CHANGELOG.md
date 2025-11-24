@@ -1,10 +1,11 @@
 # CHANGELOG
 
-#[Unreleased]
+## [1.3.0]
 
 ### Added
 
 - Add `#[derive(Builder)]` procedural macro
+- Add `#[derive(AutoSetters)]` procedural macro
 - Add `tests` crate for testing how macros works in external crates
 
 ### Fixed

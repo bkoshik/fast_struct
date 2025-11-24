@@ -5,7 +5,7 @@ mod tests {
     use fast_struct::*;
 
     #[test]
-    fn auto_getters_test() -> Result<(), Box<dyn std::error::Error>> {
+    fn auto_getters_test() {
         #[derive(AutoGetters)]
         struct Foo {
             bar: String,
@@ -17,14 +17,29 @@ mod tests {
             baz: 1984,
         };
 
-        assert_eq!("Hello, world!", foo.bar());
-        assert_eq!(1984_i16, *foo.baz());
-
-        Ok(())
+        assert_eq!("Hello, world!", foo.get_bar());
+        assert_eq!(1984_i16, *foo.get_baz());
+    }
+    
+    #[test]
+    fn auto_setters_test() {
+        #[derive(AutoSetters)]
+        struct Foo {
+            bar: String,
+            baz: i16,
+        }
+        
+        let mut foo = Foo {
+            bar: "Hi, world!".to_string(),
+            baz: 2020,
+        };
+        
+        foo.set_bar("Hello, world!");
+        foo.set_baz(1984_i16);
     }
 
     #[test]
-    fn optional_test() -> Result<(), Box<dyn std::error::Error>> {
+    fn optional_test() {
         #[optional]
         struct Foo {
             bar: String,
@@ -38,8 +53,6 @@ mod tests {
 
         assert_eq!(Some("Hello, world!".to_string()), foo.bar);
         assert_eq!(Some(1984), foo.baz);
-
-        Ok(())
     }
 
     #[test]

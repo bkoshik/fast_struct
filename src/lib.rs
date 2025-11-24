@@ -38,10 +38,12 @@
 //! ```
 
 mod auto_getters;
+mod auto_setters;
 mod builder;
 mod optional;
 
 use crate::auto_getters::auto_getters_impl;
+use crate::auto_setters::auto_setters_impl;
 use crate::builder::builder_impl;
 use crate::optional::optional_impl;
 use proc_macro::TokenStream;
@@ -69,11 +71,11 @@ use proc_macro::TokenStream;
 /// }
 ///
 /// impl Foo {
-///     pub fn bar(&self) -> &i16 {
+///     pub fn get_bar(&self) -> &i16 {
 ///         &self.bar
 ///     }
 ///
-///     pub fn baz(&self) -> &String {
+///     pub fn get_baz(&self) -> &String {
 ///         &self.baz
 ///     }
 /// }
@@ -81,6 +83,43 @@ use proc_macro::TokenStream;
 #[proc_macro_derive(AutoGetters)]
 pub fn auto_getters(input: TokenStream) -> TokenStream {
     auto_getters_impl(input)
+}
+
+/// Automatically generates ***getter methods*** only for **Named Structures**
+///
+/// # Example
+///
+/// ```
+/// use fast_struct::AutoGetters;
+///
+/// #[derive(AutoGetters)]
+/// struct Foo {
+///     bar: i16,
+///     baz: String,
+/// }
+/// ```
+///
+/// will implement these methods for `Foo`:
+///
+/// ```
+/// struct Foo {
+///     bar: i16,
+///     baz: String,
+/// }
+///
+/// impl Foo {
+///     pub fn set_bar<T: Into<i16>>(&mut self, value: T) {
+///         self.bar = value.into();
+///     }
+///
+///     pub fn set_baz<T: Into<String>>(&mut self, value: T) {
+///         self.baz = value.into();
+///     }
+/// }
+/// ```
+#[proc_macro_derive(AutoSetters)]
+pub fn auto_setters(input: TokenStream) -> TokenStream {
+    auto_setters_impl(input)
 }
 
 /// Makes all fields of **Named/Unnamed Structures** optional

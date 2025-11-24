@@ -1,6 +1,7 @@
 use proc_macro::{Span, TokenStream};
 use quote::quote;
 use syn::{Fields, Ident, ItemStruct, Type, Visibility, parse_macro_input};
+use syn::spanned::Spanned;
 
 pub fn builder_impl(input: TokenStream) -> TokenStream {
     let input: ItemStruct = parse_macro_input!(input as ItemStruct);
@@ -19,7 +20,7 @@ pub fn builder_impl(input: TokenStream) -> TokenStream {
                     let f_name: Ident = f.ident.clone().unwrap();
                     let f_name_not_found: Ident = Ident::new(
                         &format!("{}NotFound", &snake_to_pascal(&f_name.to_string())),
-                        Span::call_site().into(),
+                        f.span(),
                     );
                     let f_type: &Type = &f.ty;
                     let f_vis: &Visibility = &f.vis;
