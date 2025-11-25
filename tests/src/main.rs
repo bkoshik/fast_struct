@@ -2,7 +2,7 @@ fn main() {}
 
 #[cfg(test)]
 mod tests {
-    use fast_struct::*;
+    use simple_structures::*;
 
     #[test]
     fn auto_getters_test() {

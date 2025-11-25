@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-fast_struct = { path = ".." }
+simple_structures = { path = ".." }

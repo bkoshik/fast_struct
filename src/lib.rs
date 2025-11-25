@@ -1,6 +1,8 @@
 //! This crate provides procedural macros:
 //! - `#[derive(AutoGetters)]`
+//! - `#[derive(AutoSetters)]`
 //! - `#[optional]`
+//! - `#[derive(Builder)]`
 //!
 //! They're helping for create structures without lots of code
 //!
@@ -9,7 +11,7 @@
 //! # Example
 //!
 //! ```
-//! use fast_struct::AutoGetters;
+//! use simple_structures::AutoGetters;
 //!
 //! #[derive(AutoGetters)]
 //! struct Foo {
@@ -53,7 +55,7 @@ use proc_macro::TokenStream;
 /// # Example
 ///
 /// ```
-/// use fast_struct::AutoGetters;
+/// use simple_structures::AutoGetters;
 ///
 /// #[derive(AutoGetters)]
 /// struct Foo {
@@ -92,7 +94,7 @@ pub fn auto_getters(input: TokenStream) -> TokenStream {
 /// # Example
 ///
 /// ```
-/// use fast_struct::AutoSetters;
+/// use simple_structures::AutoSetters;
 ///
 /// #[derive(AutoSetters)]
 /// struct Foo {
@@ -134,11 +136,11 @@ pub fn auto_setters(input: TokenStream) -> TokenStream {
 /// # Example
 ///
 /// ```
-/// use fast_struct::optional;
+/// use simple_structures::optional;
 ///
 /// #[optional]
 /// pub struct Foo {
-///     #[except]
+///     #[optional(except)]
 ///     bar: bool,
 ///     baz: usize,
 ///     qux: String,
@@ -166,7 +168,7 @@ pub fn optional(_attr: TokenStream, item: TokenStream) -> TokenStream {
 /// # Example
 ///
 /// ```
-/// use fast_struct::Builder;
+/// use simple_structures::Builder;
 ///
 /// #[derive(Builder)]
 /// pub struct Foo {
